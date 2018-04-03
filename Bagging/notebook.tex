@@ -1,0 +1,611 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Bagging}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Classification using Bagging and
+CART}\label{classification-using-bagging-and-cart}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{seed}
+         \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{randrange}
+         \PY{k+kn}{from} \PY{n+nn}{csv} \PY{k}{import} \PY{n}{reader}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{BaggingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+\end{Verbatim}
+
+
+    \subsection{From Scratch}\label{from-scratch}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k}{def} \PY{n+nf}{load\PYZus{}csv}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dataset} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{file}\PY{p}{:}
+         		\PY{n}{csv\PYZus{}reader} \PY{o}{=} \PY{n}{reader}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+         		\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{csv\PYZus{}reader}\PY{p}{:}
+         			\PY{k}{if} \PY{o+ow}{not} \PY{n}{row}\PY{p}{:}
+         				\PY{k}{continue}
+         			\PY{n}{dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{dataset}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k}{def} \PY{n+nf}{str\PYZus{}column\PYZus{}to\PYZus{}float}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{column}\PY{p}{)}\PY{p}{:}
+         	\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+         		\PY{n}{row}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{str\PYZus{}column\PYZus{}to\PYZus{}int}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{column}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{class\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{]}
+         	\PY{n}{unique} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{class\PYZus{}values}\PY{p}{)}
+         	\PY{n}{lookup} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+         	\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{unique}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{lookup}\PY{p}{[}\PY{n}{value}\PY{p}{]} \PY{o}{=} \PY{n}{i}
+         	\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+         		\PY{n}{row}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{lookup}\PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{]}
+         	\PY{k}{return} \PY{n}{lookup}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{cross\PYZus{}validation\PYZus{}split}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{dataset\PYZus{}split} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         	\PY{n}{dataset\PYZus{}copy} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}
+         	\PY{n}{fold\PYZus{}size} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}folds}\PY{p}{)}
+         	\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{fold} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         		\PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{fold}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{fold\PYZus{}size}\PY{p}{:}
+         			\PY{n}{index} \PY{o}{=} \PY{n}{randrange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset\PYZus{}copy}\PY{p}{)}\PY{p}{)}
+         			\PY{n}{fold}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dataset\PYZus{}copy}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{index}\PY{p}{)}\PY{p}{)}
+         		\PY{n}{dataset\PYZus{}split}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fold}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{dataset\PYZus{}split}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def} \PY{n+nf}{accuracy\PYZus{}metric}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{correct} \PY{o}{=} \PY{l+m+mi}{0}
+         	\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{actual}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         		\PY{k}{if} \PY{n}{actual}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{n}{predicted}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+         			\PY{n}{correct} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         	\PY{k}{return} \PY{n}{correct} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{actual}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{100.0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}algorithm}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{algorithm}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{folds} \PY{o}{=} \PY{n}{cross\PYZus{}validation\PYZus{}split}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{p}{)}
+         	\PY{n}{scores} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         	\PY{k}{for} \PY{n}{fold} \PY{o+ow}{in} \PY{n}{folds}\PY{p}{:}
+         		\PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{folds}\PY{p}{)}
+         		\PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{fold}\PY{p}{)}
+         		\PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{)}
+         		\PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         		\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{fold}\PY{p}{:}
+         			\PY{n}{row\PYZus{}copy} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+         			\PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row\PYZus{}copy}\PY{p}{)}
+         			\PY{n}{row\PYZus{}copy}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}
+         		\PY{n}{predicted} \PY{o}{=} \PY{n}{algorithm}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}
+         		\PY{n}{actual} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{fold}\PY{p}{]}
+         		\PY{n}{accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}metric}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}
+         		\PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{scores}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}split}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{value}\PY{p}{,} \PY{n}{dataset}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{left}\PY{p}{,} \PY{n}{right} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         	\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+         		\PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{value}\PY{p}{:}
+         			\PY{n}{left}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+         		\PY{k}{else}\PY{p}{:}
+         			\PY{n}{right}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{left}\PY{p}{,} \PY{n}{right}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k}{def} \PY{n+nf}{gini\PYZus{}index}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{classes}\PY{p}{)}\PY{p}{:}
+         	\PY{c+c1}{\PYZsh{} count all samples at split point}
+         	\PY{n}{n\PYZus{}instances} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{p}{)} \PY{k}{for} \PY{n}{group} \PY{o+ow}{in} \PY{n}{groups}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         	\PY{c+c1}{\PYZsh{} sum weighted Gini index for each group}
+         	\PY{n}{gini} \PY{o}{=} \PY{l+m+mf}{0.0}
+         	\PY{k}{for} \PY{n}{group} \PY{o+ow}{in} \PY{n}{groups}\PY{p}{:}
+         		\PY{n}{size} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{p}{)}\PY{p}{)}
+         		\PY{c+c1}{\PYZsh{} avoid divide by zero}
+         		\PY{k}{if} \PY{n}{size} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+         			\PY{k}{continue}
+         		\PY{n}{score} \PY{o}{=} \PY{l+m+mf}{0.0}
+         		\PY{c+c1}{\PYZsh{} score the group based on the score for each class}
+         		\PY{k}{for} \PY{n}{class\PYZus{}val} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{:}
+         			\PY{n}{p} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{group}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{class\PYZus{}val}\PY{p}{)} \PY{o}{/} \PY{n}{size}
+         			\PY{n}{score} \PY{o}{+}\PY{o}{=} \PY{n}{p} \PY{o}{*} \PY{n}{p}
+         		\PY{c+c1}{\PYZsh{} weight the group score by its relative size}
+         		\PY{n}{gini} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{n}{score}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{size} \PY{o}{/} \PY{n}{n\PYZus{}instances}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{gini}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}split}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{class\PYZus{}values} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{)}\PY{p}{)}
+         	\PY{n}{b\PYZus{}index}\PY{p}{,} \PY{n}{b\PYZus{}value}\PY{p}{,} \PY{n}{b\PYZus{}score}\PY{p}{,} \PY{n}{b\PYZus{}groups} \PY{o}{=} \PY{l+m+mi}{999}\PY{p}{,} \PY{l+m+mi}{999}\PY{p}{,} \PY{l+m+mi}{999}\PY{p}{,} \PY{k+kc}{None}
+         	\PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+         		\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+         		\PY{c+c1}{\PYZsh{} for i in range(len(dataset)):}
+         		\PY{c+c1}{\PYZsh{} 	row = dataset[randrange(len(dataset))]}
+         			\PY{n}{groups} \PY{o}{=} \PY{n}{test\PYZus{}split}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{dataset}\PY{p}{)}
+         			\PY{n}{gini} \PY{o}{=} \PY{n}{gini\PYZus{}index}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{class\PYZus{}values}\PY{p}{)}
+         			\PY{k}{if} \PY{n}{gini} \PY{o}{\PYZlt{}} \PY{n}{b\PYZus{}score}\PY{p}{:}
+         				\PY{n}{b\PYZus{}index}\PY{p}{,} \PY{n}{b\PYZus{}value}\PY{p}{,} \PY{n}{b\PYZus{}score}\PY{p}{,} \PY{n}{b\PYZus{}groups} \PY{o}{=} \PY{n}{index}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{gini}\PY{p}{,} \PY{n}{groups}
+         	\PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{b\PYZus{}index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{b\PYZus{}value}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{b\PYZus{}groups}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{def} \PY{n+nf}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{group}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{outcomes} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{group}\PY{p}{]}
+         	\PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{outcomes}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{outcomes}\PY{o}{.}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{k}{def} \PY{n+nf}{split}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{n}{depth}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{left}\PY{p}{,} \PY{n}{right} \PY{o}{=} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         	\PY{k}{del}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         	\PY{c+c1}{\PYZsh{} check for a no split}
+         	\PY{k}{if} \PY{o+ow}{not} \PY{n}{left} \PY{o+ow}{or} \PY{o+ow}{not} \PY{n}{right}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{left} \PY{o}{+} \PY{n}{right}\PY{p}{)}
+         		\PY{k}{return}
+         	\PY{c+c1}{\PYZsh{} check for max depth}
+         	\PY{k}{if} \PY{n}{depth} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{max\PYZus{}depth}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{left}\PY{p}{)}\PY{p}{,} \PY{n}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{right}\PY{p}{)}
+         		\PY{k}{return}
+         	\PY{c+c1}{\PYZsh{} process left child}
+         	\PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{left}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{min\PYZus{}size}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{left}\PY{p}{)}
+         	\PY{k}{else}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}split}\PY{p}{(}\PY{n}{left}\PY{p}{)}
+         		\PY{n}{split}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{n}{depth}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+         	\PY{c+c1}{\PYZsh{} process right child}
+         	\PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{right}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{min\PYZus{}size}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{to\PYZus{}terminal}\PY{p}{(}\PY{n}{right}\PY{p}{)}
+         	\PY{k}{else}\PY{p}{:}
+         		\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}split}\PY{p}{(}\PY{n}{right}\PY{p}{)}
+         		\PY{n}{split}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{n}{depth}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k}{def} \PY{n+nf}{build\PYZus{}tree}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{root} \PY{o}{=} \PY{n}{get\PYZus{}split}\PY{p}{(}\PY{n}{train}\PY{p}{)}
+         	\PY{n}{split}\PY{p}{(}\PY{n}{root}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{root}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{row}\PY{p}{)}\PY{p}{:}
+         	\PY{k}{if} \PY{n}{row}\PY{p}{[}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+         		\PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{dict}\PY{p}{)}\PY{p}{:}
+         			\PY{k}{return} \PY{n}{predict}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{)}
+         		\PY{k}{else}\PY{p}{:}
+         			\PY{k}{return} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         	\PY{k}{else}\PY{p}{:}
+         		\PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{dict}\PY{p}{)}\PY{p}{:}
+         			\PY{k}{return} \PY{n}{predict}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{)}
+         		\PY{k}{else}\PY{p}{:}
+         			\PY{k}{return} \PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{k}{def} \PY{n+nf}{subsample}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{ratio}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{sample} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         	\PY{n}{n\PYZus{}sample} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset}\PY{p}{)} \PY{o}{*} \PY{n}{ratio}\PY{p}{)}
+         	\PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sample}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{n\PYZus{}sample}\PY{p}{:}
+         		\PY{n}{index} \PY{o}{=} \PY{n}{randrange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}\PY{p}{)}
+         		\PY{n}{sample}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{sample}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k}{def} \PY{n+nf}{bagging\PYZus{}predict}\PY{p}{(}\PY{n}{trees}\PY{p}{,} \PY{n}{row}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{n}{predict}\PY{p}{(}\PY{n}{tree}\PY{p}{,} \PY{n}{row}\PY{p}{)} \PY{k}{for} \PY{n}{tree} \PY{o+ow}{in} \PY{n}{trees}\PY{p}{]}
+         	\PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{predictions}\PY{o}{.}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k}{def} \PY{n+nf}{bagging}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}trees}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{trees} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         	\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}trees}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{sample} \PY{o}{=} \PY{n}{subsample}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{)}
+         		\PY{n}{tree} \PY{o}{=} \PY{n}{build\PYZus{}tree}\PY{p}{(}\PY{n}{sample}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{)}
+         		\PY{n}{trees}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+         	\PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{n}{bagging\PYZus{}predict}\PY{p}{(}\PY{n}{trees}\PY{p}{,} \PY{n}{row}\PY{p}{)} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{test}\PY{p}{]}
+         	\PY{k}{return}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} load and prepare data}
+         \PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./Data/electronics.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{dataset} \PY{o}{=} \PY{n}{load\PYZus{}csv}\PY{p}{(}\PY{n}{filename}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} convert class column to integers}
+         \PY{n}{str\PYZus{}column\PYZus{}to\PYZus{}int}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} evaluate algorithm}
+         \PY{n}{n\PYZus{}folds} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{l+m+mi}{6}
+         \PY{n}{min\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{sample\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.50}
+         \PY{k}{for} \PY{n}{n\PYZus{}trees} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{:}
+         	\PY{n}{scores} \PY{o}{=} \PY{n}{evaluate\PYZus{}algorithm}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{bagging}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}trees}\PY{p}{)}
+         	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trees: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{n\PYZus{}trees}\PY{p}{)}
+         	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{scores}\PY{p}{)}
+         	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Trees: 1
+Scores: [20.0, 40.0, 60.0]
+Mean Accuracy: 40.000\%
+Trees: 5
+Scores: [40.0, 40.0, 60.0]
+Mean Accuracy: 46.667\%
+Trees: 10
+Scores: [60.0, 40.0, 40.0]
+Mean Accuracy: 46.667\%
+Trees: 50
+Scores: [80.0, 40.0, 80.0]
+Mean Accuracy: 66.667\%
+
+    \end{Verbatim}
+
+    \subsection{Using scikit learn}\label{using-scikit-learn}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{bagging} \PY{o}{=} \PY{n}{BaggingClassifier}\PY{p}{(}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{max\PYZus{}samples}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./Data/electronics.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isBuy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.33}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{69}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{bagging}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} BaggingClassifier(base\_estimator=DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=None,
+                     max\_features=None, max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=None,
+                     splitter='best'),
+                  bootstrap=True, bootstrap\_features=False, max\_features=1,
+                  max\_samples=0.3, n\_estimators=10, n\_jobs=1, oob\_score=False,
+                  random\_state=None, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{bagging}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} 0.6
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
